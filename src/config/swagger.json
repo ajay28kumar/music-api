@@ -1,0 +1,129 @@
+{
+	"title": "Music API Documentation",
+	"description": "MUSIC API course for egghead",
+	"license": {
+		"name": "MIT",
+		"url": "https://opensource.org/licenses/MIT"
+	},
+	"version": "1.0.0",
+	"host": "localhost:3000",
+	"basePath": "/api",
+	"tags": [{
+		"name": "Songs",
+		"description": "API for Songs Endpoints"
+	}],
+	"schemes": [
+		"http"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/songs": {
+			"post": {
+				"tags": [
+					"Songs"
+				],
+				"summary": "API Endpoint for create Song",
+				"description": "Create new Song in database",
+				"parameters": [{
+					"name": "song",
+					"description": "Song params to create new song",
+					"in": "body",
+					"required": "true",
+					"schema": {
+						"$ref": "#definitions/Song"
+					}
+				}],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "New Song Created",
+						"schema": {
+							"$ref": "#definitions/Song"
+						}
+					}
+				}
+			},
+			"get": {
+				"tags": [
+					"Songs"
+				],
+				"summary": "API Endpoint for find all Song",
+				"description": "Find all Songs from the database",
+				"parameters": [{
+						"name": "page",
+						"type": "integer",
+						"description": "Define the page index for the records",
+						"in": "query"
+					},
+					{
+						"name": "perPage",
+						"type": "integer",
+						"description": "Define the limiet for the records i.e 10",
+						"in": "query"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "All the songs",
+						"schema": {
+							"$ref": "#definitions/Songs"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Song": {
+			"required": [
+				"title",
+				"url"
+			],
+			"properties": {
+				"_id": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"url": {
+					"type": "string"
+				},
+				"rating": {
+					"type": "integer",
+					"format": "Int32"
+				}
+			}
+		},
+		"Songs": {
+			"properties": {
+				"docs": {
+					"type": "array",
+					"$ref": "#definitions/Song"
+				},
+				"total": {
+					"type": "integer"
+				},
+				"pages": {
+					"type": "integer"
+				},
+				"limit": {
+					"type": "integer"
+				},
+				"page": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
