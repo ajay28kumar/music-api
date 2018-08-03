@@ -10,3 +10,9 @@ playListRouter.route('/')
    {session: false}), 
    playlistController.create
 )
+.get(
+    passport.authenticate(
+        'jwt', 
+    {session: false}), 
+    playlistController.findAll
+ )

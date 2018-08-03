@@ -16,5 +16,18 @@ export default {
         }catch (err) {
             return res.status(500).send(err)
         }
+    },
+
+    async findAll(req,res){
+        try {
+            const playlists = await Playlist
+                        .find()
+                        .populate('songs')
+                        .populate('user', 'firstName lastName')
+                    
+            return res.json(playlists)
+        } catch (err) {
+            return res.status(500).send(err)
+        }
     }
 }
