@@ -4,14 +4,16 @@ export default {
     async create(req,res){
         try {
             const {value, error} = playlistService.validateBody(req.body);
+        
             if(error && error.details){
-                res.json(error)
+              return  res.json(error)
             }
-            const playlist = await playlist.create(Object.assign({}), value, {user:req.user._id});
+            const playlist = await Playlist.create(
+                Object.assign({}, value, {user:req.user._id})
+            );
             return res.json(playlist)
 
         }catch (err) {
-            console.log(err);
             return res.status(500).send(err)
         }
     }
